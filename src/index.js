@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Cb101 from './Cb101';
+import Main from './components/Main';
+import "./css/style.css"
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Cb101 />
+    <Main />
   </React.StrictMode>,
   document.getElementById('root')
 );

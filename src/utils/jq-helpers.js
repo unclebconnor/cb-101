@@ -1,3 +1,5 @@
+import jQuery from "jquery";
+
 (function( $ ) {
 	var hamburgerDrop = $('#hamburger-button')
 	var lpDrop = $('#lp-dropdown');
@@ -41,7 +43,7 @@
 	var submitButton = $('#submit-button');
 	let form = $("form[name='contact-form']");
 
-	
+
 	(function(){
 		$('#choose-a-city').find($('#' + pageName)).attr('selected','selected');
 	})()
@@ -53,7 +55,7 @@
 		phoneWarningIcon.addClass('is-invisible');
 		emailWarningIcon.addClass('is-invisible');
 		pg2Error.empty();
-    	
+
     	if (!firstName.checkValidity()) {
         	nameWarningIcon.removeClass('is-invisible');
     	} else {
@@ -64,7 +66,7 @@
     		phoneWarningIcon.removeClass('is-invisible');
     	} else {
     		validCount +=1;
-    	} 
+    	}
 
     	if (!email.checkValidity()){
 			emailWarningIcon.removeClass('is-invisible');
@@ -85,7 +87,7 @@
 	var validatePg3 = function(){
 		//jquery doesn't like checkValidity()...shrugs
 		let validCount=0;
-    	
+
     	if (!arrivalDate.checkValidity()) {
         	pg3Error.innerHTML = "Please Enter Required Fields";
         	arrivalWarningIcon.toggleClass('is-invisible');
@@ -100,7 +102,7 @@
     	} else {
     		pg3Error.innerHTML = "";
     		validCount +=1;
-    	} 
+    	}
 
     	if(validCount==2){return true;}
     	else {return false;}
@@ -225,7 +227,7 @@
 	formClose.on('click', function(e){
 		e.preventDefault();
 		formCountDrop.parent().toggleClass('is-active');
-	}); 
+	});
 
 	var dateSettings = {
 		today: '',
