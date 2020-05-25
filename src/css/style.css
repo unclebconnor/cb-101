@@ -1,0 +1,336 @@
+html, body {
+    margin: 0px;
+    background-color: #000000 !important;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    color: #FFFFFF;
+    height: 100%;
+}
+
+p {
+    font-size: 1rem;
+    color: darkgray;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom:13px !important;
+}
+
+h2 {
+    margin: 20px;
+    color: #FFFFFF !important;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+h3 {
+    margin: 15px;
+    color: #FFFFFF !important;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+h4 {
+    margin: 10px;
+    color: #FFFFFF !important;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h5 {
+    font-size: 1rem;
+    color: #FFFFFF !important;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.trigger-text{
+    color: #BBBBBB;
+}
+
+.caret{
+    color: #BBBBBB;
+    /* Firefox */
+    -moz-transition: 500ms linear all;
+    /* WebKit */
+    -webkit-transition: 500ms linear all;
+    /* Opera */
+    -o-transition: 500ms linear all;
+    /* Standard */
+    transition: 500ms linear all;
+}
+
+/*For caret on click*/
+svg.upside-down  {
+    transform: rotate(-180deg);
+}
+
+.dest-menu-back {
+    background-color: lightgray;
+}
+
+/* HELPERS */
+.center {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.full-wide {
+    width: 100%
+}
+
+.lil-side-margin {
+    margin: 0 10px 0 10px;
+}
+
+.lil-bottom-margin {
+    margin-bottom: 1rem !important;
+}
+
+.no-pad {
+    padding: 0px;
+}
+
+.lil-pad {
+    padding: 13px !important;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
+
+.ow {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.valign-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* END HELPERS */
+
+.landing-hero{
+    margin-top:80px;
+}
+
+/* HEADER */
+header {
+    position: fixed;
+    height: 70px;
+    width: 100%;
+    background-color: #000000;
+    color: white;
+    top: 0px;
+    margin-bottom:0px;
+    border-radius: 0px;
+    padding: 8px 10px;
+    z-index: 4;
+    border-bottom: 1px solid white;
+}
+
+header a {
+    color: white;
+}
+
+header li a {
+    color: white;
+    font-size:12pt;
+    letter-spacing: 2px;
+    font-weight: lighter;
+    font-family: helvetica,sans-serif;
+}
+
+nav {
+    text-align: right;
+}
+
+
+.header-item {
+    top: 8px;
+}
+
+#logo-image {
+    width: 200px;
+}
+
+.main-nav div {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    font-weight: 500; 
+}
+
+.hamburger-button, .menu-dropdown-wrapper {
+    background-color: #000000 !important;
+    border: none !important;
+}
+
+.hamburger-button svg {
+    color: white;
+}
+
+.menu-dropdown-wrapper a {
+    color: white;
+}
+
+.menu-item a:hover{
+    color: white;
+    text-decoration: underline !important;
+}
+
+.menu-item:hover {
+    color: white;
+    text-decoration: underline !important;
+}
+/* END HEADER */
+
+
+/* CONTENT */
+.page-content {
+    margin-top: 70px;
+}
+/* END CONTENT */
+
+
+/* FORM */
+
+.form-area{
+    min-height: 450px;
+    margin-top: -70px !important;
+}
+
+.flex-sa{
+    justify-content: space-around;
+}
+
+.error-text {
+    color: red;
+}
+
+#pg-2-error, #pg-3-error{
+    color:#9e1726;
+    background-color: rgba(255,255,255,0.4);
+    border-radius: 5px;
+}
+
+#count-women-display, #count-men-display{
+    width:13px;
+}
+
+#party-dropdown-menu{
+    padding: 0 13px 0 13px;
+}
+
+.warning{
+    color: red;
+}
+
+#icon-row, .icon-group{
+    align-items: flex-end;
+}
+
+.icon-group :hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+@media (max-width: 768px){
+    .icon-group {
+        padding: 10px;
+    }
+
+    .icon-group p {
+        font-size: 0.75rem;
+    }
+}
+
+
+.form-nav-small {
+    background-color: #9e1726 !important;
+}
+
+.form-nav-small:hover {
+    background-color: #8e1924 !important;
+}
+
+.form-nav {
+    width:180px;
+    background-color: #9e1726 !important;
+}
+
+.form-nav:hover {
+    background-color: #8e1924 !important;
+}
+
+/* END FORM */
+
+
+/* FOOTER */
+footer {
+    border-top: 1px solid white;
+}
+
+footer.copyright {
+    text-align:center;
+    background: black;
+    padding: 20px 0 20px 0;
+    color: white;
+    height: 130px;
+}
+
+
+.social-links{
+    font-size: 1.5em;
+    display: inline-block;
+    margin: 10px;
+}
+
+.social-links a svg, .copyright a{
+    color: white;
+}
+/* END FOOTER */
+
+
+/* BACKGROUND IMAGE STUFF */
+.main-img{
+    /*background-image: url("../images/city-vegas.jpg");*/
+    height: 100%; 
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+}
+
+.faq-img{
+    /*background-image: url("../images/city-vegas.jpg");*/
+    height: 100%; 
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+}
+
+.faq-bg-area{
+    min-height: 450px;
+}
+
+
+/*.parallax-window {
+    height: 550px;
+}*/
+
+/* END BACKGROUND IMAGE STUFF */
+
+
+.checkbox, .radio {
+    color: black !important;
+}
+

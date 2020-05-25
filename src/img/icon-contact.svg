@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="69px" height="51px" viewBox="0 0 69 51" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>Contact icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="30" height="50" rx="2"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-2" transform="translate(-403.000000, -404.000000)">
+            <g id="Contact-icon" transform="translate(404.000000, 405.000000)">
+                <g id="phone" transform="translate(38.000000, 0.000000)">
+                    <g id="Rectangle-11">
+                        <use fill="#000000" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <rect stroke="#000000" stroke-width="3" x="1.5" y="1.5" width="27" height="47" rx="2"></rect>
+                    </g>
+                    <rect id="Rectangle-13" fill="#FFFFFF" x="11" y="2" width="10" height="1" rx="0.5"></rect>
+                    <circle id="Oval-6" fill="#FFFFFF" cx="16" cy="47" r="2"></circle>
+                    <rect id="Rectangle-12" fill="#FFFFFF" x="1.5" y="5" width="27" height="39"></rect>
+                </g>
+                <path d="M24,30 C29.7053975,30 34.9458093,28.755725 39.0644484,26.6776671 C40.406662,26.0004536 44.6178326,28.8401064 45.699044,28 C46.8715848,27.0889302 44.8891873,22.4850115 45.699044,21.4171964 C47.1745663,19.4716853 48,17.2960896 48,15 C48,6.71572875 37.254834,0 24,0 C10.745166,0 0,6.71572875 0,15 C0,23.2842712 10.745166,30 24,30 Z" id="Oval" stroke="#000000" fill="#FFFFFF"></path>
+                <circle id="Oval-3" stroke="#000000" cx="11.5" cy="15.5" r="2.5"></circle>
+                <circle id="Oval-3-Copy-2" stroke="#000000" cx="23.5" cy="15.5" r="2.5"></circle>
+                <circle id="Oval-3-Copy" stroke="#000000" cx="35.5" cy="15.5" r="2.5"></circle>
+            </g>
+        </g>
+    </g>
+</svg>
