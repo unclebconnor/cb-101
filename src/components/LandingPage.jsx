@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import Logo from '../img/logo.jpg';
+import Logo from 'img/logo.jpg';
+import Vegas from 'img/city-vegas.jpg';
+import { Link } from "react-router-dom";
 
-const LandingPage = ({handleSelectCity}) => {
+const LandingPage = () => {
     const [dropdownIsActive, toggleDropdownIsActive] = useState(false)
 
-  return (
-    <>
+    return (
+    <div className="page-content main-img" >
         <header className="level is-mobile">
             <div className="level-left">
                 <a className="level-item" href="home-url">
@@ -14,7 +16,7 @@ const LandingPage = ({handleSelectCity}) => {
             </div>
         </header>
 
-        <div className="is-mobile">
+        <div className="is-mobile" style={{ backgroundImage: `url(${Vegas})`, minHeight: "600px" }}>
             <section className="hero">
                 <div className="hero-body landing-hero">
                     <div className="container">
@@ -44,22 +46,26 @@ const LandingPage = ({handleSelectCity}) => {
                             </div>
                             <div className="dropdown-menu has-text-centered full-wide" id="dropdown-menu" role="menu">
                                 <div className="dropdown-content">
-                                    <a
+                                    <Link
                                         className="dropdown-item"
-                                        onMouseDown={() => handleSelectCity("Vegas")}
-                                    >Vegas</a>
-                                    <a
+                                        to="/vegas/"
+                                        onMouseDown={e => e.preventDefault()}
+                                    >Vegas</Link>
+                                    <Link
                                         className="dropdown-item"
-                                        onMouseDown={() => handleSelectCity("Miami")}
-                                    >Miami</a>
-                                    <a
+                                        to="/miami/"
+                                        onMouseDown={e => e.preventDefault()}
+                                    >Miami</Link>
+                                    <Link
                                         className="dropdown-item"
-                                        onMouseDown={() => handleSelectCity("New York")}
-                                    >New York</a>
-                                    <a
+                                        to="/new-york/"
+                                        onMouseDown={e => e.preventDefault()}
+                                    >New York</Link>
+                                    <Link
                                         className="dropdown-item"
-                                        onMouseDown={() => handleSelectCity("Los Angeles")}
-                                    >Los Angeles</a>
+                                        to="/los-angeles/"
+                                        onMouseDown={e => e.preventDefault()}
+                                    >Los Angeles</Link>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +73,7 @@ const LandingPage = ({handleSelectCity}) => {
                 </div>
             </div>
         </div>
-    </>
+    </div>
   );
 }
 

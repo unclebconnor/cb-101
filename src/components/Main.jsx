@@ -1,42 +1,58 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
-import LandingPage from './LandingPage.jsx';
-import Vegas from '../img/city-vegas.jpg';
+import LandingPage from 'components/LandingPage.jsx';
+import CityPage from 'components/city-page/CityPage.jsx';
+import Footer from 'components/Footer.jsx';
+
+import Vegas from 'img/city-vegas.jpg';
+import Miami from 'img/city-miami.jpg';
+import NewYork from 'img/city-new-york.jpg';
+import LosAngeles from 'img/city-los-angeles.jpg';
 
 class Main extends React.Component {
   constructor(props){
-    super(props)
-    this.state = {
-      selectedCity: 'Seattle'
-    }
+	super(props);
+	this.state = {
+	  selectedCity: null
+	}
   }
 
+
   handleSelectCity = (city) => {
-    this.setState({selectedCity: city})
+	this.setState({selectedCity: city})
   }
-  // default to landing page & select city
-  // redirect to city page
-  // city pages have their own router on main
-  // sub-pages selected by router
-  // form sub-page populates main state
-  // on-click -> validates form contents, sends to sendgrid if valid
+
+
+//   work on form
+//   clean up margins/css
+//   on-click -> validates form contents, sends to sendgrid if valid
 
 
   render() {
-    return (
-      <>
-		<div
-			className="page-content main-img"
-			style={{ backgroundImage: `url(${Vegas})`, minHeight: "600px" }}>
-          <LandingPage handleSelectCity={this.handleSelectCity}/>
-        </div>
-      </>
-    );
+	return (
+	  <Router>
+		{/* to-do: redirect bad routes to home */}
+		<Route exact path="/">
+			<LandingPage/>
+		</Route>
+		<Route path="/vegas">
+			<CityPage selectedCity={"vegas"} backgroundImage={Vegas}/>
+		</Route>
+		<Route path="/miami">
+			<CityPage selectedCity={"miami"} backgroundImage={Miami}/>
+		</Route>
+		<Route path="/new-york">
+			<CityPage selectedCity={"New York"} backgroundImage={NewYork}/>
+		</Route>
+		<Route path="/los-angeles">
+			<CityPage selectedCity={"Los Angeles"} backgroundImage={LosAngeles}/>
+		</Route>
+		<Footer/>
+	  </Router>
+	);
   }
 }
 
