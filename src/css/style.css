@@ -4,10 +4,10 @@ html, body {
     font-family: 'Montserrat', sans-serif;
 }
 
-body {
+/* body {
     color: #FFFFFF;
     height: 100%;
-}
+} */
 
 p {
     font-size: 1rem;
@@ -86,6 +86,14 @@ svg.upside-down  {
     margin-bottom: 1rem !important;
 }
 
+.lil-top-margin {
+    margin-top: 1rem !important;
+}
+
+.mo-top-margin {
+    margin-top: 70px;
+}
+
 .no-pad {
     padding: 0px;
 }
@@ -114,6 +122,15 @@ svg.upside-down  {
   justify-content: center;
 }
 
+.dark-red{
+    color: #9e1726;
+}
+
+.dont-touch {
+    user-select: none
+}
+
+
 
 /* END HELPERS */
 
@@ -129,7 +146,7 @@ header {
     background-color: #000000;
     color: white;
     top: 0px;
-    margin-bottom:0px;
+    margin-bottom: 0px;
     border-radius: 0px;
     padding: 8px 10px;
     z-index: 4;
@@ -196,6 +213,10 @@ nav {
 /* CONTENT */
 .page-content {
     margin-top: 70px;
+}
+
+.form-wrap {
+    margin-top: 100px;
 }
 /* END CONTENT */
 

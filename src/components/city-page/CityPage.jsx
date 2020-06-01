@@ -18,11 +18,11 @@ import Faqs from './Faqs';
 import Logo from 'img/logo.jpg';
 
 
-const CityPage = ({selectedCity, backgroundImage}) => {
+const CityPage = ({selectedCity, backgroundImage, displayTitle, setFormState, formState}) => {
     const [dropdownIsActive, toggleDropdownIsActive] = useState(false)
     return (
         <Router basename={selectedCity}>
-            <header className="level is-mobile">
+            <header className="level is-mobile" >
                 <div className="level-left">
                     <a className="level-item" href="/">
                         <img src={Logo} alt="Clubbing 101 Logo" id="logo-image"/>
@@ -31,7 +31,7 @@ const CityPage = ({selectedCity, backgroundImage}) => {
                 <nav className="level-right is-hidden-mobile">
                     {/* Full version */}
                     <div className="level-item menu-item lil-side-margin">
-                        <Link to="/">{capitalize(selectedCity)}</Link>
+                        <Link to="/">{displayTitle}</Link>
                     </div>
                     <div className="level-item menu-item lil-side-margin">
                         <Link to="/about/">About</Link>
@@ -89,12 +89,16 @@ const CityPage = ({selectedCity, backgroundImage}) => {
                 </nav>
             </header>
             <div className="content-area">
-                {/* <div className="columns"> */}
-                <Route exact path="/"><Home backgroundImage={backgroundImage}/></Route>
+                <Route exact path="/">
+                    <Home
+                        backgroundImage={backgroundImage}
+                        setFormState={setFormState}
+                        formState={formState}
+                    />
+                </Route>
                 <Route path="/about/"><About/></Route>
                 <Route path="/how-it-works/"><HowItWorks /></Route>
                 <Route path="/faqs/"><Faqs/></Route>
-                {/* </div> */}
             </div>
         </Router>
     )

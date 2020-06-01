@@ -16,39 +16,71 @@ class Main extends React.Component {
   constructor(props){
 	super(props);
 	this.state = {
-	  selectedCity: null
+	  selectedCity: '',
+	  arrivalDate: '',
+	  departureDate: '',
+	  occasion: '',
+	  firstName: '',
+	  lastName: '',
+	  phone: '',
+	  email: '',
+	  countMen: 0,
+	  countWomen: 0,
+	  minors: "No"
+
 	}
   }
 
-
-  handleSelectCity = (city) => {
-	this.setState({selectedCity: city})
+  setFormState = (key, val) => {
+	this.setState({[key]: val})
   }
 
-
-//   work on form
-//   clean up margins/css
-//   on-click -> validates form contents, sends to sendgrid if valid
-
+  // validate by value
+  // validate by form page, before progressing
+  // listen to city changes (useEffect) and change root page
 
   render() {
 	return (
 	  <Router>
 		{/* to-do: redirect bad routes to home */}
 		<Route exact path="/">
-			<LandingPage/>
+			<LandingPage setFormState={this.setFormState} />
 		</Route>
 		<Route path="/vegas">
-			<CityPage selectedCity={"vegas"} backgroundImage={Vegas}/>
+			<CityPage
+				selectedCity={"vegas"}
+				backgroundImage={Vegas}
+				displayTitle={"Vegas"}
+				setFormState={this.setFormState}
+				formState={this.state}
+			/>
 		</Route>
 		<Route path="/miami">
-			<CityPage selectedCity={"miami"} backgroundImage={Miami}/>
+			<CityPage
+				selectedCity={"miami"}
+				backgroundImage={Miami}
+				displayTitle={"Miami"}
+				setFormState={this.setFormState}
+				formState={this.state}
+			/>
 		</Route>
 		<Route path="/new-york">
-			<CityPage selectedCity={"New York"} backgroundImage={NewYork}/>
+			<CityPage
+				selectedCity={"new-york"}
+				backgroundImage={NewYork}
+				displayTitle={"New York"}
+				setFormState={this.setFormState}
+				formState={this.state}
+			/>
 		</Route>
 		<Route path="/los-angeles">
-			<CityPage selectedCity={"Los Angeles"} backgroundImage={LosAngeles}/>
+			<CityPage
+				selectedCity={"los-angeles"}
+				backgroundImage={LosAngeles}
+				displayTitle={"Los Angeles"}
+				setFormState={this.setFormState}
+				formState={this.state}
+			/>
 		</Route>
 		<Footer/>
 	  </Router>

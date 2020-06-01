@@ -10,7 +10,7 @@ const LandingPage = () => {
     <div className="page-content main-img" >
         <header className="level is-mobile">
             <div className="level-left">
-                <a className="level-item" href="home-url">
+                <a className="level-item" href="/">
                     <img src={Logo} alt="Clubbing 101 Logo" id="logo-image"/>
                 </a>
             </div>

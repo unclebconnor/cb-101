@@ -7,23 +7,23 @@ import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg
 const Footer = () => {
 
     return (
-        <footer class="copyright center">
-            <div class="social-links">
+        <footer className="copyright center">
+            <div className="social-links">
                 <a href="https://www.facebook.com/clubbing101/">
                     <FontAwesomeIcon icon={faFacebook}/>
                 </a>
             </div>
-            <div class="social-links">
+            <div className="social-links">
                 <a href="https://www.instagram.com/clubbing101/">
                     <FontAwesomeIcon icon={faInstagram}/>
                 </a>
             </div>
-            <div class="social-links">
+            <div className="social-links">
                 <a href="https://twitter.com/clubbing101_com">
                     <FontAwesomeIcon icon={faTwitter}/>
                 </a>
             </div>
-            <p class="copyright">
+            <p className="copyright">
                 Copyright © 2018 Clubbing101 - All Rights Reserved.
             </p>
         </footer>
