@@ -26,7 +26,7 @@ class Main extends React.Component {
 	  email: '',
 	  countMen: 0,
 	  countWomen: 0,
-	  minors: "No"
+	  minors: "no"
 
 	}
   }
@@ -34,10 +34,6 @@ class Main extends React.Component {
   setFormState = (key, val) => {
 	this.setState({[key]: val})
   }
-
-  // validate by value
-  // validate by form page, before progressing
-  // listen to city changes (useEffect) and change root page
 
   render() {
 	return (

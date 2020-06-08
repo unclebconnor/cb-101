@@ -94,6 +94,7 @@ const CityPage = ({selectedCity, backgroundImage, displayTitle, setFormState, fo
                         backgroundImage={backgroundImage}
                         setFormState={setFormState}
                         formState={formState}
+                        selectedCity={selectedCity}
                     />
                 </Route>
                 <Route path="/about/"><About/></Route>

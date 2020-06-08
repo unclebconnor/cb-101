@@ -236,10 +236,11 @@ nav {
     color: red;
 }
 
-#pg-2-error, #pg-3-error{
+.form-page-error{
     color:#9e1726;
-    background-color: rgba(255,255,255,0.4);
+    background-color: rgba(255,255,255,0.7);
     border-radius: 5px;
+    text-align: center;
 }
 
 #count-women-display, #count-men-display{

@@ -4,37 +4,121 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faAngleDown, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 import WarningIcon from 'components/tools/WarningIcon.jsx'
+import FormPageError from 'components/tools/FormPageError.jsx'
+import {
+    textFieldIsValid,
+    phoneIsValid,
+    emailIsValid,
+    dateIsValid,
+    groupSizeIsValid,
+    dateOrderIsValid,
+    pg2IsValid,
+    pg3IsValid
+} from 'components/tools/form-validation.js'
 
 import MapIcon from 'img/icon-map.svg';
 import TripDetailsIcon from 'img/icon-trip-details.svg';
 import ContactIcon from 'img/icon-contact.svg';
 
 
-export const Form = ({setFormState, formState}) => {
+export const Form = ({setFormState, formState, selectedCity}) => {
     const [page, setPage] = React.useState(2)
     const [groupDropIsOpen, toggleGroupDrop] = React.useState(false)
+    const [validatePg2, setValidatePg2] = React.useState(false)
+    const [validatePg3, setValidatePg3] = React.useState(false)
+    const [pg2Error, setPg2Error] = React.useState(false)
+    const [pg3Error, setPg3Error] = React.useState(false)
+    const [completePage, setCompletePage] = React.useState(false)
+    const [arrivalFieldType, setArrivalFieldType] = React.useState('text')
+    const [departureFieldType, setDepartureFieldType] = React.useState('text')
 
+    // getting selectedCity from url, so update state for form
+    React.useEffect(() => {
+        const re = /^\/?(?<path>[\w-]*)\/?.*/
+        const path = window.location.pathname
+        const city = path.match(re).groups.path
+        if (formState.selectedCity  !== city){
+            setFormState('selectedCity', city)
+        }
+    },[formState.selectedCity, setFormState])
+
+    // generic onChange handler
     const handleOnChange = (e) => {
         e.preventDefault()
         setFormState(e.target.name, e.target.value)
     }
 
+    // for countMen, countWomen
     const incrementCount = ( stateKey, change) => {
         const val = formState[stateKey] + change
         setFormState(stateKey, val)
     }
 
+    // special handling for minors radio button
     const handleMinorsRadio = (e) => {
         setFormState('minors', e.target.value)
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    // submit assumes form has been validated
+    const handleSubmit = () => {
+        console.log("form submitted: ", formState )
+        // submit to sendGrid
+        // handle errors
     }
+
+    const renderDateError = () => {
+        const errorText = "Departure must be after arrival"
+        return (
+            formState.arrivalDate !== '' && formState.departureDate !== ''
+                ? dateOrderIsValid(formState.arrivalDate, formState.departureDate)
+                    ? null
+                    : <FormPageError errorText={errorText}/>
+                : null
+        )
+    }
+
+    // page 2 validation
+    React.useMemo(() => {
+        if(validatePg2){
+            const pageIsValid = pg2IsValid(formState.firstName, formState.phone, formState.email)
+            if(!pageIsValid){
+               setCompletePage(false) // fix page and submit again
+               setPg2Error(true)
+            } else {
+                setPg2Error(false)
+            }
+            if(pageIsValid && completePage){
+                setPage(3)
+                setValidatePg2(false)  // reset in case we come back
+                setCompletePage(false) // reset in case we come back
+            }
+        }
+    }, [validatePg2, completePage, formState.firstName, formState.phone, formState.email])
+
+    // page 3 validation
+    React.useMemo(() => {
+        if(validatePg3){
+            const pageIsValid = pg3IsValid(formState.arrivalDate, formState.departureDate, formState.countWomen + formState.countMen)
+            if(!pageIsValid){
+                setCompletePage(false) // fix page and submit again
+                setPg3Error(true)
+            } else {
+                setPg3Error(false)
+            }
+            if(pageIsValid && completePage){
+                handleSubmit()
+                setValidatePg3(false)  // reset in case we come back
+                setCompletePage(false) // reset in case we come back
+            }
+        }
+    // leaving handleSubmit out of hook deps on purpose
+    // eslint-disable-next-line
+    }, [validatePg3, completePage, formState.arrivalDate, formState.departureDate, formState.countWomen, formState.countMen ])
 
     return (
         <div className="contact-form-container mo-top-margin">
             <div className='' id="contact-form">
+                {/* Form page nav */}
                 <div className="flex-sa is-flex" id="icon-row" style={{margin: "10px 0 10px 0"}}>
                     <div className='icon-group has-text-centered is-link' id='icon-pg-1'>
                         <img src={MapIcon} alt="map icon" onClick={() => setPage(1)}/>
@@ -49,25 +133,29 @@ export const Form = ({setFormState, formState}) => {
                         <h5>Trip Details</h5>
                     </div>
                 </div>
+                {/* Begin Form */}
                 <form className="column is-8 is-offset-2" id="contact-form" name="contact-form">
+                    {/* Form Page 1 */}
                     <div className={`form-page ${page !== 1 ? 'is-hidden' : ''}`} id="form-page-1" >
                         <section id="form-destination">
                             <div className="columns">
                                 <div className="field column is-12">
                                     <div className="control is-flex flex-sa">
                                         <div className="select">
+                                            {/* // to-do: abstract this and make cities/names constants */}
                                             <select
                                                 id="choose-a-city"
                                                 name="choose-a-city"
                                                 title="Choose a City"
                                                 style={{width:"300px"}}
-                                                onChange={handleOnChange}
+                                                onChange={(e) => window.location.href = `/${e.target.value}`}
+                                                value={selectedCity}
                                             >
                                                 <option value="" disabled>Choose a City</option>
-                                                <option id="vegas" value="Vegas">Vegas</option>
-                                                <option id="miami" value="Miami">Miami</option>
-                                                <option id="new-york" value="New York">New York</option>
-                                                <option id="los-angeles" value="Los Angeles">Los Angeles</option>
+                                                <option value="vegas" >Vegas</option>
+                                                <option value="miami" >Miami</option>
+                                                <option value="new-york" >New York</option>
+                                                <option value="los-angeles" >Los Angeles</option>
                                             </select>
                                         </div>
                                     </div>
@@ -84,11 +172,10 @@ export const Form = ({setFormState, formState}) => {
                             </div>
                         </section>
                     </div>
+                    {/* Form Page 2 */}
                     <div className={`form-page ${page !== 2 ? 'is-hidden' : ''}`} id="form-page-2">
                         <section id="form-contact">
-                            <div className="field">
-                                <label><div id="pg-2-error" ></div></label>
-                            </div>
+                            { pg2Error ? <FormPageError/> : null}
                             <div className="columns is-multiline">
                                 <div className="field column is-6">
                                     <div className="control is-flex flex-sa has-icons-right">
@@ -105,7 +192,13 @@ export const Form = ({setFormState, formState}) => {
                                             onChange={handleOnChange}
                                             autoFocus
                                         />
-                                        <WarningIcon isVisible={true}/>
+                                        {
+                                            validatePg2
+                                                ? textFieldIsValid(formState.firstName)
+                                                    ? null
+                                                    : <WarningIcon isVisible={true}/>
+                                                : null
+                                        }
                                     </div>
                                 </div>
                                 <div className="field column is-6">
@@ -128,19 +221,24 @@ export const Form = ({setFormState, formState}) => {
                                     <div className="control is-flex flex-sa has-icons-right">
                                         <input
                                             className="input "
-                                            validationmessage="Please enter valid"
+                                            validationmessage="Please a enter valid phone number"
                                             id="phone"
                                             name="phone"
                                             placeholder="Phone Number"
                                             title="Phone Number: xxx-xxx-xxxx"
                                             type="tel"
-                                            pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
                                             autoComplete='tel-national'
                                             tabIndex="3"
                                             onChange={handleOnChange}
                                             value={formState.phone}
                                         />
-                                        <WarningIcon isVisible={true}/>
+                                        {
+                                            validatePg2
+                                                ? phoneIsValid(formState.phone)
+                                                    ? null
+                                                    : <WarningIcon isVisible={true}/>
+                                                : null
+                                        }
                                     </div>
                                 </div>
                                 <div className="field column is-12">
@@ -152,13 +250,18 @@ export const Form = ({setFormState, formState}) => {
                                             placeholder="Email Address"
                                             title="Email Address: example@email.com"
                                             type="email"
-                                            pattern=".+@.+\..+"
                                             value={formState.email}
                                             autoComplete='email'
                                             tabIndex="4"
                                             onChange={handleOnChange}
                                         />
-                                        <WarningIcon isVisible={true}/>
+                                        {
+                                            validatePg2
+                                                ? emailIsValid(formState.email)
+                                                    ? null
+                                                    : <WarningIcon isVisible={true}/>
+                                                : null
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -176,50 +279,72 @@ export const Form = ({setFormState, formState}) => {
                                         className="button is-link form-nav"
                                         type="button"
                                         tabIndex="5"
-                                        onClick={() => setPage(3)}
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            setCompletePage(true)
+                                            setValidatePg2(true)
+                                        }}
                                     >Next</button>
                                 </div>
                             </div>
                         </section>
                     </div>
+                    {/* Form Page 3 */}
                     <div className={`form-page ${page !== 3 ? 'is-hidden' : ''}`}  id="form-page-3">
                         <section id="form-details">
-                            <div className="field">
-                                <label><div id="pg-3-error"></div></label>
-                            </div>
+                            {pg3Error ? <FormPageError/> : null}
+                            {renderDateError()}
                             <div className="columns is-multiline">
                                 <div className="field column is-6">
-                                    <div className="control is-flex flex-sa has-icons-right">
+                                    <div
+                                        className={`control is-flex flex-sa ${dateIsValid(formState.arrivalDate) ? '' : 'has-icons-right'}`}
+                                    >
                                         <input
                                             className="input validate-date"
                                             id="arrival-date"
                                             name="arrivalDate"
                                             placeholder="Arrival Date"
                                             title="Arrival Date: mm/dd/yyyy"
-                                            type="date"
-                                            pattern="[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}|[0-9]{2}"
+                                            type={arrivalFieldType}
                                             tabIndex="6"
+                                            onFocus={() => setArrivalFieldType("date")}
+                                            onBlur={() => setArrivalFieldType("text")}
                                             onChange={handleOnChange}
                                             value={formState.arrivalDate}
                                         />
-                                        <WarningIcon isVisible={true}/>
+                                        {
+                                            validatePg3
+                                                ? dateIsValid(formState.arrivalDate)
+                                                    ? null
+                                                    : <WarningIcon isVisible={true}/>
+                                                : null
+                                        }
                                     </div>
                                 </div>
                                 <div className="field column is-6">
-                                    <div className="control is-flex flex-sa has-icons-right">
+                                    <div
+                                        className={`control is-flex flex-sa ${dateIsValid(formState.departureDate) ? '' : 'has-icons-right'}`}
+                                    >
                                         <input
                                             className="input validate-date"
                                             id="departure-date"
                                             name="departureDate"
                                             placeholder="Departure Date"
                                             title="Departure Date: mm/dd/yyyy"
-                                            type="date"
-                                            pattern="[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}|[0-9]{2}"
+                                            type={departureFieldType}
                                             tabIndex="7"
+                                            onFocus={() => setDepartureFieldType("date")}
+                                            onBlur={() => setDepartureFieldType("text")}
                                             onChange={handleOnChange}
                                             value={formState.departureDate}
                                         />
-                                        <WarningIcon isVisible={true}/>
+                                        {
+                                            validatePg3
+                                                ? dateIsValid(formState.departureDate)
+                                                    ? null
+                                                    : <WarningIcon isVisible={true}/>
+                                                : null
+                                        }
                                     </div>
                                 </div>
                                 <div className={`dropdown is-flex flex-sa field column is-12 ${groupDropIsOpen ? 'is-active' : ''}`}>
@@ -237,9 +362,19 @@ export const Form = ({setFormState, formState}) => {
                                         >
                                             <div className="level-left">
                                                 <span className="level-item">Group Size:</span>
-                                                <span className="level-item" id="count-total-display">{formState.countMen + formState.countWomen}</span>
+                                                <span className="level-item" id="count-total-display">
+                                                    {formState.countMen + formState.countWomen}
+                                                </span>
                                             </div>
+
                                             <div className="level-right">
+                                                {
+                                                    validatePg3
+                                                        ? groupSizeIsValid(formState.countMen + formState.countWomen)
+                                                            ? null
+                                                            : <WarningIcon isVisible={true}/>
+                                                        : null
+                                                }
                                                 <span className="icon is-small level-item">
                                                     <FontAwesomeIcon icon={faAngleDown}/>
                                                 </span>
@@ -260,7 +395,9 @@ export const Form = ({setFormState, formState}) => {
                                                         icon={faMinusCircle}
                                                         onClick={(e) => {
                                                             e.preventDefault()
-                                                            incrementCount('countMen', -1)
+                                                            if(formState.countMen > 0){
+                                                                incrementCount('countMen', -1)
+                                                            }
                                                         }}
                                                     /></span>
                                                     <span
@@ -289,7 +426,9 @@ export const Form = ({setFormState, formState}) => {
                                                         icon={faMinusCircle}
                                                         onClick={(e) => {
                                                             e.preventDefault()
-                                                            incrementCount('countWomen', -1)
+                                                            if(formState.countWomen > 0){
+                                                                incrementCount('countWomen', -1)
+                                                            }
                                                         }}
                                                     /></span>
                                                     <span
@@ -315,16 +454,16 @@ export const Form = ({setFormState, formState}) => {
                                                     <label className="radio level-item">
                                                         <input
                                                             type="radio"
-                                                            checked={formState.minors === "Yes"}
-                                                            value="Yes"
+                                                            checked={formState.minors === "yes"}
+                                                            value="yes"
                                                             onChange={() => {return}} // satisfies strictmode complaint
                                                         />&nbsp;Yes
                                                     </label>
                                                     <label className="radio level-item">
                                                         <input
                                                             type="radio"
-                                                            checked={formState.minors === "No"}
-                                                            value="No"
+                                                            checked={formState.minors === "no"}
+                                                            value="no"
                                                             onChange={() => {return}} // satisfies strictmode complaint
                                                         />&nbsp;No
                                                     </label>
@@ -382,7 +521,12 @@ export const Form = ({setFormState, formState}) => {
                                         value="submit"
                                         name='submit-button'
                                         tabIndex="10"
-                                        onSubmit={handleSubmit}
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            // also submits form
+                                            setCompletePage(true)
+                                            setValidatePg3(true)
+                                        }}
                                     >Submit</button>
                                 </div>
                             </div>
