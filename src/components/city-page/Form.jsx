@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faAngleDown, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +22,7 @@ import TripDetailsIcon from 'img/icon-trip-details.svg';
 import ContactIcon from 'img/icon-contact.svg';
 
 
-export const Form = ({setFormState, formState, selectedCity}) => {
+export const Form = ({setFormState, formState, selectedCity, setShowError, setShowSuccess}) => {
     const [page, setPage] = React.useState(2)
     const [groupDropIsOpen, toggleGroupDrop] = React.useState(false)
     const [validatePg2, setValidatePg2] = React.useState(false)
@@ -60,13 +61,15 @@ export const Form = ({setFormState, formState, selectedCity}) => {
     }
 
     // submit assumes form has been validated
-    const handleSubmit = () => {
-        const method = 'GET';
-        let response = fetch('/api/submit_form', {method, formState})
-        // let result = response.json()
-        console.log(response)
-        // submit to sendGrid
-        // handle errors
+    const handleSubmit = async () => {
+        try {
+            await axios.post('/api/submit_form', { formState })
+                .then(() => {
+                    setShowSuccess(true)
+                })
+        } catch (e) {
+            setShowError(true)
+        }
     }
 
     const renderDateError = () => {

@@ -5,9 +5,11 @@ import "css/style.css"
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Main />
-  </React.StrictMode>,
+  // uncomment strictmode in development.
+  // leaving strictmode on in production will cause double-rendering and sending emails
+  // <React.StrictMode>
+    <Main />,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 
