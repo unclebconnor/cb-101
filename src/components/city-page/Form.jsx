@@ -61,7 +61,10 @@ export const Form = ({setFormState, formState, selectedCity}) => {
 
     // submit assumes form has been validated
     const handleSubmit = () => {
-        console.log("form submitted: ", formState )
+        const method = 'GET';
+        let response = fetch('/api/submit_form', {method, formState})
+        // let result = response.json()
+        console.log(response)
         // submit to sendGrid
         // handle errors
     }
