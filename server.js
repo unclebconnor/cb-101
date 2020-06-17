@@ -12,9 +12,6 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // parse application/json
 app.use(bodyParser.json());
 
-// console.log that your server is up and running
-app.listen(port, () => console.log(`Listening on port ${port}`));
-
 const buildEmailMessage = (formState) => {
 	const f = formState;
 	// form has default values & validation so these are safe
@@ -36,10 +33,6 @@ const buildEmailMessage = (formState) => {
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
-
-app.get('/', function(request, response) {
-    response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
-  });
 
 app.post("/api/submit_form", async (req, res) => {
 	const msg = {
@@ -69,3 +62,11 @@ app.post("/api/submit_form", async (req, res) => {
 		res.status(500).send("Something went wrong");
 	}
 });
+
+// All remaining requests return the React app, so it can handle routing.
+app.get('*', function(request, response) {
+	response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
+});
+
+// console.log that your server is up and running
+app.listen(port, () => console.log(`Listening on port ${port}`));
