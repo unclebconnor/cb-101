@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require('path');
-const app = express();
+
 var bodyParser = require("body-parser");
 const port = process.env.PORT || 5000;
 require("dotenv").config();
@@ -9,9 +9,6 @@ require("dotenv").config();
 // https://github.com/sendgrid/sendgrid-nodejs
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-// parse application/json
-app.use(bodyParser.json());
 
 const buildEmailMessage = (formState) => {
 	const f = formState;
@@ -32,13 +29,13 @@ const buildEmailMessage = (formState) => {
 	return messageText;
 };
 
-// Priority serve any static files.
-// comment this out on dev
-app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+const app = express();
 
-app.get('/', function(req, res){
-	res.send('aloha'); //not really being used b/c react
-});
+// parse application/json
+app.use(bodyParser.json());
+
+// Priority serve any static files.
+app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
 app.post("/api/submit_form", async (req, res) => {
 	const msg = {
