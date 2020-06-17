@@ -1,13 +1,23 @@
 {
-  "name": "server",
+  "name": "clubbing-101",
   "version": "1.0.0",
-  "description": "",
+  "description": "clubbing 101 inquiry form",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "cd react-ui/ && npm install && npm run build"
   },
-  "author": "",
+  "cacheDirectories": [
+    "node_modules",
+    "react-ui/node_modules"
+  ],
+  "keywords": [
+    "node",
+    "heroku",
+    "create-react-app",
+    "react"
+  ],
+  "author": "Brian Connor",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "7.2.0",

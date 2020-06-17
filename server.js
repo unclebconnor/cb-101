@@ -36,8 +36,8 @@ const buildEmailMessage = (formState) => {
 
 app.post("/api/submit_form", async (req, res) => {
 	const msg = {
-		to: "clubbing101.inquiries@gmail.com",
-		from: "theclubbing101@gmail.com",
+		to: `${process.env.CLUBBING_101_INQUIRIES}`,
+		from: `${process.env.CLUBBING_101_MAIN}`,
 		subject: "Clubbing 101 Inquiry",
 		text: buildEmailMessage(req.body.formState),
 	};
@@ -46,7 +46,7 @@ app.post("/api/submit_form", async (req, res) => {
 
 	const confirmMsg = {
 		to: `${req.body.formState.email}`,
-		from: "theclubbing101@gmail.com",
+		from: `${process.env.CLUBBING_101_MAIN}`,
 		subject: "Clubbing 101 Inquiry",
 		text: thanks + buildEmailMessage(req.body.formState),
 	};
