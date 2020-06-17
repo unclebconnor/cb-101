@@ -35,7 +35,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Priority serve any static files.
-app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+app.use(express.static(path.join(__dirname, '../react-ui/build')));
 
 app.post("/api/submit_form", async (req, res) => {
 	const msg = {
@@ -67,8 +67,8 @@ app.post("/api/submit_form", async (req, res) => {
 });
 
 // All remaining requests return the React app, so it can handle routing.
-app.get('*', function(request, response) {
-	response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, '/react-ui/build/index.html'));
 });
 
 // console.log that your server is up and running
