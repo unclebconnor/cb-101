@@ -36,6 +36,10 @@ const buildEmailMessage = (formState) => {
 // comment this out on dev
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
+app.get('/', function(req, res){
+	res.send('aloha'); //not really being used b/c react
+});
+
 app.post("/api/submit_form", async (req, res) => {
 	const msg = {
 		to: `${process.env.CLUBBING_101_INQUIRIES}`,
