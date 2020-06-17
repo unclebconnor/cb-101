@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 const app = express();
 var bodyParser = require("body-parser");
 const port = process.env.PORT || 5000;
@@ -32,6 +33,7 @@ const buildEmailMessage = (formState) => {
 };
 
 // Priority serve any static files.
+// comment this out on dev
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
 app.post("/api/submit_form", async (req, res) => {
