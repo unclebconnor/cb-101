@@ -37,6 +37,10 @@ app.use(bodyParser.json());
 // Priority serve any static files.
 app.use(express.static(path.join(__dirname, '../react-ui/build')));
 
+app.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname+'/react-ui/build/index.html'));
+  });
+
 app.post("/api/submit_form", async (req, res) => {
 	const msg = {
 		to: `${process.env.CLUBBING_101_INQUIRIES}`,
