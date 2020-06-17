@@ -37,6 +37,10 @@ const buildEmailMessage = (formState) => {
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 
+app.get('/', function(request, response) {
+    response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
+  });
+
 app.post("/api/submit_form", async (req, res) => {
 	const msg = {
 		to: `${process.env.CLUBBING_101_INQUIRIES}`,
