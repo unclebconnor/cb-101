@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Route
 } from "react-router-dom";
+// import "css/style.css";
 import LandingPage from 'components/LandingPage.jsx';
 import CityPage from 'components/city-page/CityPage.jsx';
 import Footer from 'components/Footer.jsx';
