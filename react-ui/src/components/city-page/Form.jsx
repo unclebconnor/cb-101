@@ -14,13 +14,13 @@ import {
     groupSizeIsValid,
     dateOrderIsValid,
     pg2IsValid,
-    pg3IsValid
+    pg3IsValid,
+    isMobile
 } from 'components/tools/form-validation.js'
 
 import MapIcon from 'img/icon-map.svg';
 import TripDetailsIcon from 'img/icon-trip-details.svg';
 import ContactIcon from 'img/icon-contact.svg';
-
 
 export const Form = ({setFormState, formState, selectedCity, setShowError, setShowSuccess}) => {
     const [page, setPage] = React.useState(2)
@@ -311,7 +311,7 @@ export const Form = ({setFormState, formState, selectedCity, setShowError, setSh
                                             name="arrivalDate"
                                             placeholder="Arrival Date"
                                             title="Arrival Date: mm/dd/yyyy"
-                                            type={arrivalFieldType}
+                                            type={isMobile() ? "date" : arrivalFieldType}
                                             tabIndex="6"
                                             onFocus={() => setArrivalFieldType("date")}
                                             onBlur={() => setArrivalFieldType("text")}
@@ -337,7 +337,7 @@ export const Form = ({setFormState, formState, selectedCity, setShowError, setSh
                                             name="departureDate"
                                             placeholder="Departure Date"
                                             title="Departure Date: mm/dd/yyyy"
-                                            type={departureFieldType}
+                                            type={isMobile() ? "date" : departureFieldType}
                                             tabIndex="7"
                                             onFocus={() => setDepartureFieldType("date")}
                                             onBlur={() => setDepartureFieldType("text")}
